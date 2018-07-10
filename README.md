@@ -8,4 +8,4 @@ A flexible library for Android
   <type>pom</type>
 </dependency>
 
-implementation 'com.walker.drip:FlexibleCore:1.0.0'
+implementation 'com.walker.drip:core:1.0.0'
