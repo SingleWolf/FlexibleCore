@@ -2,6 +2,7 @@ package com.walker.core.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +15,7 @@ import android.view.ViewGroup;
  * @email feitianwumu@163.com
  * @desc fragment的基类
  */
-public abstract class AbstractBaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
     /**
      * 宿主Context
      */
@@ -30,14 +31,19 @@ public abstract class AbstractBaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View baseView = inflater.inflate(getLayoutId(), container, false);
-        buildView(baseView, savedInstanceState);
         return baseView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        buildView(view, savedInstanceState);
     }
 
     /**
      * 创建view
      *
-     * @param baseView               view
+     * @param baseView           view
      * @param savedInstanceState savedInstanceState
      */
     protected abstract void buildView(View baseView, Bundle savedInstanceState);

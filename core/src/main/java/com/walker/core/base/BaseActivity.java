@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
  * @email feitianwumu@163.com
  * @desc activity基类
  */
-public abstract class AbstractBaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

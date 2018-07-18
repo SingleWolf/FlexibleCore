@@ -2,6 +2,7 @@ package com.walker.core.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,18 +16,18 @@ import android.view.ViewGroup;
  * @desc fragment基类(和AbstractBaseFragmentActivity的继承者搭配使用，支持嵌套fragment)
  */
 
-public abstract class AbstractBaseActivityFragment extends Fragment {
+public abstract class BaseActivityFragment extends Fragment {
     /**
      * 宿主Activity
      * 防止内存不足时fragment调用个体Activity()时报空指针
      */
-    private AbstractBaseFragmentActivity mHoldActivity;
+    private BaseFragmentActivity mHoldActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mHoldActivity = (AbstractBaseFragmentActivity) context;
+            mHoldActivity = (BaseFragmentActivity) context;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,8 +37,13 @@ public abstract class AbstractBaseActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View baseView = inflater.inflate(getLayoutId(), container, false);
-        buildView(baseView, savedInstanceState);
         return baseView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        buildView(view, savedInstanceState);
     }
 
     /**
@@ -60,7 +66,7 @@ public abstract class AbstractBaseActivityFragment extends Fragment {
      *
      * @return 宿主Activity
      */
-    protected AbstractBaseFragmentActivity getHoldActivity() {
+    protected BaseFragmentActivity getHoldActivity() {
         return mHoldActivity;
     }
 

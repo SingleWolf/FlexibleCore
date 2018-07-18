@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
  * @desc activity基类（嵌套fragment）
  */
 
-public abstract class AbstractBaseFragmentActivity extends AppCompatActivity {
+public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
