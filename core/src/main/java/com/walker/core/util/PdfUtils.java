@@ -1,6 +1,5 @@
 package com.walker.core.util;
 
-import android.text.TextUtils;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
@@ -56,7 +55,7 @@ public class PdfUtils {
     }
 
     /**
-     * 基与pdf.js本地库自定义加载在线pdf
+     * 基于pdf.js本地库自定义加载在线pdf
      * @param webView webView
      * @param pdfUrl 在线pdf地址
      */
@@ -64,7 +63,7 @@ public class PdfUtils {
         if (webView == null) {
             return;
         }
-        //基与pdf.js本地库自定义预览UI
+        //基于pdf.js本地库自定义预览UI
         webView.loadUrl("file:///android_asset/customViewer.html?" + pdfUrl);
     }
 }
