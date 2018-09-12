@@ -10,13 +10,13 @@ A flexible library for Android
 
 implementation 'com.walker.drip:core:1.0.5'
 
-#################################################################################################
+##############################################################################################<br>
 
-##指纹识别的使用
-1、清单文件中加入指纹识别权限
-<!--指纹识别权限-->
-<uses-permission android:name="android.permission.USE_FINGERPRINT" />
-2、初始化指纹识别
+## 指纹识别的使用
+1、清单文件中加入指纹识别权限<br>
+<!--指纹识别权限--><br>
+<uses-permission android:name="android.permission.USE_FINGERPRINT" /><br>
+2、初始化指纹识别<br>
 ```Java
 private FingerprintCore.IFingerprintResultListener mResultListener = new FingerprintCore.IFingerprintResultListener() {
         @Override
@@ -46,7 +46,7 @@ private FingerprintCore.IFingerprintResultListener mResultListener = new Fingerp
         mFingerprintCore.setFingerprintManager(mResultListener);
     }
 ```
- 3、调用识别和取消识别
+ 3、调用识别和取消识别<br>
  ```Java
  private void startFingerprintRecognition() {
         if (mFingerprintCore.isSupport()) {
@@ -66,8 +66,8 @@ private FingerprintCore.IFingerprintResultListener mResultListener = new Fingerp
         }
  }
 ```
-##自动banner的使用
-1、初始化banner
+## 自动banner的使用
+1、初始化banner<br>
 ```Java
 private void initBanner() {
        //设置布局（也可使用默认布局）
@@ -122,7 +122,7 @@ private void initBanner() {
         });
     }
 ```
-2、创建banner具体展示布局（类于ImageView）
+2、创建banner具体展示布局（类于ImageView）<br>
 ```Java
   private static class BannerViewHolder implements ViewHolder {
         private SimpleDraweeView imageView;
@@ -147,7 +147,7 @@ private void initBanner() {
 
     }
 ```
-3、启动或暂停banner
+3、启动或暂停banner<br>
 ```Java
     private void startBanner() {
         try {
