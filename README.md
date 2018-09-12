@@ -12,10 +12,12 @@ implementation 'com.walker.drip:core:1.0.5'
 
 
 ## 指纹识别的使用
-1、清单文件中加入指纹识别权限<br>
-<!--指纹识别权限--><br>
+1、清单文件中加入指纹识别权限
+```Java
+<!--指纹识别权限-->
 <uses-permission android:name="android.permission.USE_FINGERPRINT" /><br>
-2、初始化指纹识别<br>
+```
+2、初始化指纹识别
 ```Java
 private FingerprintCore.IFingerprintResultListener mResultListener = new FingerprintCore.IFingerprintResultListener() {
         @Override
@@ -45,7 +47,7 @@ private FingerprintCore.IFingerprintResultListener mResultListener = new Fingerp
         mFingerprintCore.setFingerprintManager(mResultListener);
     }
 ```
- 3、调用识别和取消识别<br>
+ 3、调用识别和取消识别
  ```Java
  private void startFingerprintRecognition() {
         if (mFingerprintCore.isSupport()) {
@@ -66,7 +68,7 @@ private FingerprintCore.IFingerprintResultListener mResultListener = new Fingerp
  }
 ```
 ## 自动banner的使用
-1、初始化banner<br>
+1、初始化banner
 ```Java
 private void initBanner() {
        //设置布局（也可使用默认布局）
@@ -121,7 +123,7 @@ private void initBanner() {
         });
     }
 ```
-2、创建banner具体展示布局（类于ImageView）<br>
+2、创建banner具体展示布局（类于ImageView）
 ```Java
   private static class BannerViewHolder implements ViewHolder {
         private SimpleDraweeView imageView;
@@ -146,7 +148,7 @@ private void initBanner() {
 
     }
 ```
-3、启动或暂停banner<br>
+3、启动或暂停banner
 ```Java
     private void startBanner() {
         try {
