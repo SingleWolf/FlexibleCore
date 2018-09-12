@@ -12,11 +12,12 @@ implementation 'com.walker.drip:core:1.0.5'
 
 #################################################################################################
 
-#指纹识别的使用
+##指纹识别的使用
 1、清单文件中加入指纹识别权限
 <!--指纹识别权限-->
 <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 2、初始化指纹识别
+```Java
 private FingerprintCore.IFingerprintResultListener mResultListener = new FingerprintCore.IFingerprintResultListener() {
         @Override
         public void onAuthenticateSuccess() {
@@ -44,8 +45,9 @@ private FingerprintCore.IFingerprintResultListener mResultListener = new Fingerp
         mFingerprintCore = new FingerprintCore(this);
         mFingerprintCore.setFingerprintManager(mResultListener);
     }
-    
+```
  3、调用识别和取消识别
+ ```Java
  private void startFingerprintRecognition() {
         if (mFingerprintCore.isSupport()) {
             if (mFingerprintCore.isAuthenticating()) {
@@ -63,9 +65,10 @@ private FingerprintCore.IFingerprintResultListener mResultListener = new Fingerp
             mFingerprintCore.cancelAuthenticate();
         }
  }
-
-#自动banner的使用
+```
+##自动banner的使用
 1、初始化banner
+```Java
 private void initBanner() {
        //设置布局（也可使用默认布局）
         //vpBannerActivity.setViewPagerLayout(R.layout.multi_layout_view_pager_home,R.id.vp_main,R.id.ll_main_dot);
@@ -118,7 +121,9 @@ private void initBanner() {
             }
         });
     }
+```
 2、创建banner具体展示布局（类于ImageView）
+```Java
   private static class BannerViewHolder implements ViewHolder {
         private SimpleDraweeView imageView;
 
@@ -141,7 +146,9 @@ private void initBanner() {
         }
 
     }
+```
 3、启动或暂停banner
+```Java
     private void startBanner() {
         try {
             if (vpBannerActivity != null) {
@@ -161,3 +168,4 @@ private void initBanner() {
             e.printStackTrace();
         }
     }
+```    
