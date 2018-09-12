@@ -15,7 +15,7 @@ implementation 'com.walker.drip:core:1.0.5'
 1、清单文件中加入指纹识别权限
 ```Java
 <!--指纹识别权限-->
-<uses-permission android:name="android.permission.USE_FINGERPRINT" /><br>
+<uses-permission android:name="android.permission.USE_FINGERPRINT" />
 ```
 2、初始化指纹识别
 ```Java
