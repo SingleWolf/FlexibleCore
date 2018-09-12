@@ -1,6 +1,6 @@
 # FlexibleCore
 A flexible library for Android
-
+```Java
 <dependency>
   <groupId>com.walker.drip</groupId>
   <artifactId>core</artifactId>
@@ -9,7 +9,7 @@ A flexible library for Android
 </dependency>
 
 implementation 'com.walker.drip:core:1.0.5'
-
+```
 
 ## 指纹识别的使用
 1、清单文件中加入指纹识别权限
