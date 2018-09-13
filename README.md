@@ -4,11 +4,17 @@ A flexible library for Android
 <dependency>
   <groupId>com.walker.drip</groupId>
   <artifactId>core</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.6</version>
   <type>pom</type>
 </dependency>
 
-implementation 'com.walker.drip:core:1.0.5'
+implementation 'com.walker.drip:core:1.0.6'
+```
+
+## 混淆
+```Java
+-dontwarn com.walker.core.**
+-keep class com.walker.core.**{*;}
 ```
 
 ## 指纹识别的使用
