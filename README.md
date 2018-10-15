@@ -4,11 +4,11 @@ A flexible library for Android
 <dependency>
   <groupId>com.walker.drip</groupId>
   <artifactId>core</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.8</version>
   <type>pom</type>
 </dependency>
 
-implementation 'com.walker.drip:core:1.0.6'
+implementation 'com.walker.drip:core:1.0.8'
 ```
 
 ## 混淆
