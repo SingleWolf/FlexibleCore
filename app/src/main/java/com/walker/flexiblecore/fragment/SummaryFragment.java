@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.walker.core.base.BaseActivityFragment;
+import com.walker.core.util.DateTimeUtils;
 import com.walker.flexiblecore.R;
 import com.walker.flexiblecore.adapter.SummaryAdapter;
 import com.walker.flexiblecore.bean.Summary;
@@ -30,12 +32,14 @@ import butterknife.Unbinder;
 public class SummaryFragment extends BaseActivityFragment {
     @BindView(R.id.rvSummary)
     RecyclerView rvSummary;
+    @BindView(R.id.tvTest)
+    TextView tvTest;
     Unbinder unbinder;
 
     private List<Summary> mSummaryList;
 
     public static Fragment getInstance() {
-        Fragment fragment=new SummaryFragment();
+        Fragment fragment = new SummaryFragment();
         return fragment;
     }
 
@@ -57,6 +61,21 @@ public class SummaryFragment extends BaseActivityFragment {
         rvSummary.setLayoutManager(new LinearLayoutManager(getHoldActivity()));
         SummaryAdapter adapter = new SummaryAdapter(mSummaryList);
         rvSummary.setAdapter(adapter);
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.NORMAL) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ALL_1) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ALL_2) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ALL_3) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.DAY_1) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.DAY_2) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.DAY_3) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.MIN_1) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.MIN_2) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_YEAR) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_MONTH) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_DAY) + "\n");
+        tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_HOUR) + "\n");
+
+
     }
 
     @Override
