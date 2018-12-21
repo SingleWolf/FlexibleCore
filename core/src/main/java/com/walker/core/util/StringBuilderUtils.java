@@ -3,10 +3,10 @@ package com.walker.core.util;
 import java.util.ArrayList;
 
 /**
- * @date on 2018/4/17 0017 上午 10:42
  * @author Walker
+ * @date on 2018/4/17 0017 上午 10:42
  * @email feitianwumu@163.com
- * @desc  字符串工具类
+ * @desc 字符串工具类
  */
 public class StringBuilderUtils {
     /**
@@ -88,13 +88,14 @@ public class StringBuilderUtils {
     }
 
     /**
-     * 拼接N个字符
+     * 拼接N个字符(基于变长变量)
+     *
      * @param values n个字符集合
      * @return 目标字符
      */
-    public static String plicePlus(String...values) {
+    public static String plicePlus(String... values) {
         StringBuilder builder = new StringBuilder();
-        for(String val:values){
+        for (String val : values) {
             builder.append(val);
         }
         return builder.toString();

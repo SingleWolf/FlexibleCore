@@ -67,6 +67,44 @@ public class SPHelper {
     }
 
     /**
+     * 批量存入数据
+     *
+     * @param map 集合
+     * @param <T> 存入数据范型
+     */
+    public static <T> void put(Map<String, T> map) {
+
+        if (map == null || map.isEmpty()) {
+            return;
+        }
+
+        SharedPreferences sp = sContext.getSharedPreferences(SHARED_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        for (Map.Entry<String, T> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            String key = entry.getKey();
+            if (value == null) {
+                // if value is null, just handler it as a String
+                editor.putString(key, null);
+            } else {
+                if (value.getClass() == Boolean.class) {
+                    editor.putBoolean(key, (Boolean) value);
+                } else if (value.getClass() == Float.class) {
+                    editor.putFloat(key, (Float) value);
+                } else if (value.getClass() == Integer.class) {
+                    editor.putInt(key, (Integer) value);
+                } else if (value.getClass() == Long.class) {
+                    editor.putLong(key, (Long) value);
+                } else if (value.getClass() == String.class) {
+                    editor.putString(key, (String) value);
+                }
+            }
+        }
+        SharedPreferencesCompat.apply(editor);
+    }
+
+    /**
      * 存入数据
      *
      * @param fileName 文件名
@@ -94,6 +132,44 @@ public class SPHelper {
                 editor.putString(key, (String) value);
             } else {
                 throw new RuntimeException("the put value type can't support.");
+            }
+        }
+        SharedPreferencesCompat.apply(editor);
+    }
+
+    /**
+     * 批量存入数据
+     *
+     * @param fileName 文件名
+     * @param map      集合
+     * @param <T>      存入数据范型
+     */
+    public static <T> void put(String fileName, Map<String, T> map) {
+        if (map == null || map.isEmpty()) {
+            return;
+        }
+
+        SharedPreferences sp = sContext.getSharedPreferences(fileName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        for (Map.Entry<String, T> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            String key = entry.getKey();
+            if (value == null) {
+                // if value is null, just handler it as a String
+                editor.putString(key, null);
+            } else {
+                if (value.getClass() == Boolean.class) {
+                    editor.putBoolean(key, (Boolean) value);
+                } else if (value.getClass() == Float.class) {
+                    editor.putFloat(key, (Float) value);
+                } else if (value.getClass() == Integer.class) {
+                    editor.putInt(key, (Integer) value);
+                } else if (value.getClass() == Long.class) {
+                    editor.putLong(key, (Long) value);
+                } else if (value.getClass() == String.class) {
+                    editor.putString(key, (String) value);
+                }
             }
         }
         SharedPreferencesCompat.apply(editor);
@@ -142,12 +218,12 @@ public class SPHelper {
     /**
      * 根据键值获取数据
      *
-     * @param fileName 文件名
+     * @param fileName     文件名
      * @param key          键
      * @param defaultValue 默认值
      * @return boolean
      */
-    public static boolean getBoolean(String fileName,String key, boolean defaultValue) {
+    public static boolean getBoolean(String fileName, String key, boolean defaultValue) {
         SharedPreferences sp = sContext.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.getBoolean(key, defaultValue);
@@ -169,12 +245,12 @@ public class SPHelper {
     /**
      * 根据键值获取数据
      *
-     * @param fileName 文件名
+     * @param fileName     文件名
      * @param key          键
      * @param defaultValue 默认值
      * @return float
      */
-    public static float getFloat(String fileName,String key, float defaultValue) {
+    public static float getFloat(String fileName, String key, float defaultValue) {
         SharedPreferences sp = sContext.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.getFloat(key, defaultValue);
@@ -196,12 +272,12 @@ public class SPHelper {
     /**
      * 根据键值获取数据
      *
-     * @param fileName 文件名
+     * @param fileName     文件名
      * @param key          键
      * @param defaultValue 默认值
      * @return int
      */
-    public static int getInt(String fileName,String key, int defaultValue) {
+    public static int getInt(String fileName, String key, int defaultValue) {
         SharedPreferences sp = sContext.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.getInt(key, defaultValue);
@@ -223,12 +299,12 @@ public class SPHelper {
     /**
      * 根据键值获取数据
      *
-     * @param fileName 文件名
+     * @param fileName     文件名
      * @param key          键
      * @param defaultValue 默认值
      * @return long
      */
-    public static long getLong(String fileName,String key, long defaultValue) {
+    public static long getLong(String fileName, String key, long defaultValue) {
         SharedPreferences sp = sContext.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.getLong(key, defaultValue);
@@ -250,11 +326,10 @@ public class SPHelper {
      * 查询某个key是否已经存在
      *
      * @param fileName 文件名
-     * @param key 键
-     *
+     * @param key      键
      * @return boolean
      */
-    public static boolean isContains(String fileName,String key) {
+    public static boolean isContains(String fileName, String key) {
         SharedPreferences sp = sContext.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
@@ -263,7 +338,7 @@ public class SPHelper {
     /**
      * 返回所有的键值对
      *
-     * @return Map<String       ,               ?>
+     * @return Map<String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ?>
      */
     public static Map<String, ?> getAll() {
         SharedPreferences sp = sContext.getSharedPreferences(SHARED_NAME,
@@ -275,7 +350,7 @@ public class SPHelper {
      * 返回所有的键值对
      *
      * @param fileName 文件名
-     * @return Map<String       ,               ?>
+     * @return Map<String                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ,                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ?>
      */
     public static Map<String, ?> getAll(String fileName) {
         SharedPreferences sp = sContext.getSharedPreferences(fileName,
