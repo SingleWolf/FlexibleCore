@@ -130,6 +130,15 @@ public class DateTimeUtils {
         return timestamp;
     }
 
+    /**
+     * 获取制定点的时间戳
+     *
+     * @param source 指定时间
+     * @return long型时间戳
+     */
+    public static long getTimeStamp(String source) {
+        return getTimeStamp(source, DateFormat.NORMAL);
+    }
 
     /**
      * 判断是否是相同一天

@@ -74,7 +74,7 @@ public class SummaryFragment extends BaseActivityFragment {
         tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_MONTH) + "\n");
         tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_DAY) + "\n");
         tvTest.append(DateTimeUtils.getDate2String(DateTimeUtils.DateFormat.ONLY_HOUR) + "\n");
-
+        tvTest.append(DateTimeUtils.getTimeStamp("20181222105105") + "\n");
 
     }
 
