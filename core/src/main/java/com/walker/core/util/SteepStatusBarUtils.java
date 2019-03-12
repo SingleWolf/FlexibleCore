@@ -1,14 +1,20 @@
 package com.walker.core.util;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v7.graphics.Palette;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Walker
@@ -75,8 +81,7 @@ public class SteepStatusBarUtils {
      * 添加状态栏占位视图
      *
      * @param context Activity级别上下文
-     *
-     * @param color 颜色值
+     * @param color   颜色值
      */
     public static void addStatusViewWithColor(Activity context, int color) {
         int statusBarHeight = 0;
@@ -99,5 +104,73 @@ public class SteepStatusBarUtils {
             statusBarView.setBackgroundColor(color);
             decorView.addView(statusBarView, lp);
         }
+    }
+
+    /**
+     * 根据图片获取状态栏颜色
+     * @param bitmap 源图片
+     * @param extractColorListener 回调接口
+     */
+    public static void getStatusColorWithBitmap(Bitmap bitmap, final ExtractColorListener extractColorListener) {
+        final int statuaBarAlaphaValue = 100;
+        Palette.Builder builder = Palette.from(bitmap);
+        builder.generate(new Palette.PaletteAsyncListener() {
+            @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onGenerated(Palette palette) {
+                Palette.Swatch vibrant = palette.getVibrantSwatch();
+                Palette.Swatch darkVibrant = palette.getDarkVibrantSwatch();
+                Palette.Swatch lightVibrant = palette.getLightVibrantSwatch();
+                Palette.Swatch muted = palette.getMutedSwatch();
+                Palette.Swatch darkMuted = palette.getDarkMutedSwatch();
+                Palette.Swatch lightMuted = palette.getLightMutedSwatch();
+
+                Map<Palette.Swatch, Integer> valueMap = new HashMap<>();
+                int vibrantCount = getColorCountBySwatch(vibrant);
+                int darkVibrantCount = getColorCountBySwatch(darkVibrant);
+                int lightVibrantCount = getColorCountBySwatch(lightVibrant);
+                int mutedCount = getColorCountBySwatch(muted);
+                int darkMutedCount = getColorCountBySwatch(darkMuted);
+                int lightMutedCount = getColorCountBySwatch(lightMuted);
+
+                valueMap.put(vibrant, vibrantCount);
+                valueMap.put(darkVibrant, darkVibrantCount);
+                valueMap.put(lightVibrant, lightVibrantCount);
+                valueMap.put(muted, mutedCount);
+                valueMap.put(darkMuted, darkMutedCount);
+                valueMap.put(lightMuted, lightMutedCount);
+
+                int maxValue = 0;
+                boolean isLight = false;
+                Palette.Swatch maxSwatch = null;
+                for (Map.Entry<Palette.Swatch, Integer> entry : valueMap.entrySet()) {
+                    if (maxValue < entry.getValue()) {
+                        maxValue = entry.getValue();
+                        maxSwatch = entry.getKey();
+                        isLight = entry.getKey() == lightVibrant || entry.getKey() == lightMuted;
+                    }
+                }
+                int statusBarColor;
+                if (maxSwatch == null) {
+                    statusBarColor = Color.argb(statuaBarAlaphaValue, 0, 0, 0);
+                    isLight = false;
+                } else {
+                    int color = maxSwatch.getRgb();
+                    int red = (color & 0xff0000) >> 16;
+                    int green = (color & 0x00ff00) >> 8;
+                    int blue = (color & 0x0000ff);
+                    statusBarColor = Color.argb(statuaBarAlaphaValue, red, green, blue);
+                }
+                extractColorListener.setColor(statusBarColor, isLight);
+            }
+        });
+    }
+
+    private static int getColorCountBySwatch(Palette.Swatch swatch) {
+        return swatch == null ? 0 : swatch.getPopulation();
+    }
+
+    public interface ExtractColorListener {
+        void setColor(int color, boolean isLight);
     }
 }
