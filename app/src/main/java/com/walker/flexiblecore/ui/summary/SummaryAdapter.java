@@ -1,4 +1,4 @@
-package com.walker.flexiblecore.adapter;
+package com.walker.flexiblecore.ui.summary;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,12 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.walker.flexiblecore.R;
-import com.walker.flexiblecore.bean.Summary;
+import com.walker.flexiblecore.data.model.Summary;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -43,12 +40,11 @@ public class SummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tvTitle)
         TextView tvTitle;
 
         ViewHolder(View view) {
             super(view);
-            ButterKnife.bind(this, view);
+            tvTitle=view.findViewById(R.id.tvTitle);
         }
     }
 }

@@ -1,17 +1,18 @@
-package com.walker.flexiblecore.bean;
+package com.walker.flexiblecore.data.model;
 
 /**
- * @date on 2018/7/10 0010 下午 17:08
  * @author Walker
+ * @date on 2018/7/10 0010 下午 17:08
  * @email feitianwumu@163.com
- * @desc  简介
+ * @desc 简介
  */
 public class Summary {
     private String title;
     private String componentName;
     private int actionFlag;
 
-    public Summary(){}
+    public Summary() {
+    }
 
     public Summary(String title, String componentName, int actionFlag) {
         this.title = title;
