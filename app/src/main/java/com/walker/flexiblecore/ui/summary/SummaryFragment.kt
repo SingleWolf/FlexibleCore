@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.walker.core.base.BaseActivityFragment
@@ -37,7 +38,7 @@ class SummaryFragment : BaseActivityFragment() {
         }
     }
 
-    private fun listSummary() {
+    private fun listSummary(){
         viewModel.listSummary().observe(this, Observer { listResource ->
             listResource ?: return@Observer
 
@@ -49,6 +50,10 @@ class SummaryFragment : BaseActivityFragment() {
                 Toast.makeText(context, "加载失败", Toast.LENGTH_SHORT).show()
             }
         })
+
+        //故意引发异常
+        //var nullList: Array<String>? = arrayOf()
+        //Log.i("nullList", nullList!![3])
     }
 
     companion object {
