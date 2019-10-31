@@ -1,8 +1,11 @@
 package com.walker.flexiblecore;
 
 import android.app.Application;
+import android.os.Process;
+import android.util.Log;
 
 import com.walker.core.exception.CrashHandler;
+import com.walker.core.exception.OOMHelper;
 import com.walker.core.exception.OnCrashListener;
 import com.walker.core.util.ToastUtils;
 
@@ -23,5 +26,13 @@ public class MyApplication extends Application {
             }
         });
         ToastUtils.init(this);
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (level >= TRIM_MEMORY_UI_HIDDEN && level == TRIM_MEMORY_RUNNING_CRITICAL) {
+            Log.i("onTrimMemory", OOMHelper.get().listStatisticsInfo(Process.myPid()));
+        }
     }
 }

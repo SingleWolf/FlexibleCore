@@ -6,12 +6,17 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.walker.core.base.BaseActivityFragment
+import com.walker.core.delegate.OnRecyclerItemClickListener
+import com.walker.core.exception.OOMHelper
+import com.walker.core.util.ToastUtils
 import com.walker.flexiblecore.R
 import com.walker.flexiblecore.data.Resource
+import com.walker.flexiblecore.ui.OOMFragment
 import com.walker.flexiblecore.util.InjectorUtil
 
 class SummaryFragment : BaseActivityFragment() {
@@ -21,10 +26,32 @@ class SummaryFragment : BaseActivityFragment() {
 
     override fun buildView(baseView: View, savedInstanceState: Bundle?) {
         rvSummary = baseView.findViewById<RecyclerView>(R.id.rvSummary)
-        rvSummary.layoutManager = LinearLayoutManager(holdActivity)
         viewModel = ViewModelProviders.of(this, InjectorUtil.getSummaryModelFactory()).get(SummaryViewModel::class.java)
         adapter = SummaryAdapter(viewModel.dataList)
-        rvSummary.adapter = adapter
+        rvSummary?.let {
+            it.layoutManager=LinearLayoutManager(holdActivity)
+            it.adapter = adapter
+            it.addOnItemTouchListener(object : OnRecyclerItemClickListener(it) {
+                override fun onItemClick(vh: RecyclerView.ViewHolder) {
+                    execItemClick(vh.layoutPosition)
+                }
+
+                override fun onItemLongClick(vh: RecyclerView.ViewHolder) {
+
+                }
+            })
+        }
+    }
+
+    private fun execItemClick(pos: Int) {
+        val summary = viewModel.dataList[pos]
+        summary?.let {
+            if (TextUtils.equals("OOM相关", it.title)) {
+                addFragment(OOMFragment.instance, "OOMFragment")
+            } else {
+                ToastUtils.showShort(it.title)
+            }
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -38,7 +65,7 @@ class SummaryFragment : BaseActivityFragment() {
         }
     }
 
-    private fun listSummary(){
+    private fun listSummary() {
         viewModel.listSummary().observe(this, Observer { listResource ->
             listResource ?: return@Observer
 

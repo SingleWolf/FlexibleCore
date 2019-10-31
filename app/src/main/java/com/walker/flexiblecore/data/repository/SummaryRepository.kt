@@ -22,6 +22,11 @@ class SummaryRepository private constructor() {
                 it.title = "选取图片"
                 list.add(it)
             }
+
+            Summary().let {
+                it.title = "OOM相关"
+                list.add(it)
+            }
             liveData.postValue(Resource.success(list))
         }
 
