@@ -5,6 +5,7 @@ import android.util.Log
 import com.walker.core.base.BaseFragmentActivity
 import com.walker.flexiblecore.R
 import com.walker.flexiblecore.ui.summary.SummaryFragment
+import com.walker.optimize.analyzer.IndexAnalyzer
 
 class MainActivity : BaseFragmentActivity() {
 
@@ -20,6 +21,9 @@ class MainActivity : BaseFragmentActivity() {
         addFragment(SummaryFragment.instance, "SummaryFragment")
 
         aspectTest()
+
+        val keyInfo = IndexAnalyzer().listKeyInfo(applicationContext)
+        Log.i("KeyInfo", keyInfo)
     }
 
     private fun aspectTest() {

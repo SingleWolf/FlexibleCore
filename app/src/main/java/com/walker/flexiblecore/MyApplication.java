@@ -8,6 +8,7 @@ import com.walker.core.exception.CrashHandler;
 import com.walker.core.exception.OOMHelper;
 import com.walker.core.exception.OnCrashListener;
 import com.walker.core.util.ToastUtils;
+import com.walker.optimize.analyzer.IndexAnalyzer;
 
 /**
  * @author Walker
@@ -34,5 +35,12 @@ public class MyApplication extends Application {
         if (level >= TRIM_MEMORY_UI_HIDDEN && level == TRIM_MEMORY_RUNNING_CRITICAL) {
             Log.i("onTrimMemory", OOMHelper.get().listStatisticsInfo(Process.myPid()));
         }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        String keyInfo=new IndexAnalyzer().listKeyInfo(getApplicationContext());
+        Log.i("onLowMemory", keyInfo);
     }
 }
