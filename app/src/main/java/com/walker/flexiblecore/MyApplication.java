@@ -2,6 +2,7 @@ package com.walker.flexiblecore;
 
 import android.app.Application;
 import android.content.Context;
+import android.location.LocationManager;
 import android.os.Process;
 import android.util.Log;
 
@@ -11,6 +12,7 @@ import com.walker.core.exception.OnCrashListener;
 import com.walker.core.util.ToastUtils;
 import com.walker.optimize.analyzer.IndexAnalyzer;
 import com.walker.optimize.analyzer.TimeAnalyzerMgr;
+import com.walker.optimize.hook.location.LocationHookHelper;
 
 /**
  * @author Walker
@@ -36,6 +38,11 @@ public class MyApplication extends Application {
             }
         });
         ToastUtils.init(this);
+
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationHookHelper.hookLocationManager(locationManager);
+        LocationHookHelper.hookSystemServiceRegistry();
+
         TimeAnalyzerMgr.getInstance().getTimeAnalyzer(1).recordingTimeTag("application-onCreate");
     }
 

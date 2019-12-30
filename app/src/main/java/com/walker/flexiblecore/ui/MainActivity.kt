@@ -1,5 +1,7 @@
 package com.walker.flexiblecore.ui
 
+import android.content.Context
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import com.walker.core.base.BaseFragmentActivity
@@ -26,6 +28,8 @@ class MainActivity : BaseFragmentActivity() {
 
         val keyInfo = IndexAnalyzer().listKeyInfo(applicationContext)
         Log.i("KeyInfo", keyInfo)
+
+        val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
