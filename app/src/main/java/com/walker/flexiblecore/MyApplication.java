@@ -1,6 +1,7 @@
 package com.walker.flexiblecore;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.Process;
 import android.util.Log;
 
@@ -9,6 +10,7 @@ import com.walker.core.exception.OOMHelper;
 import com.walker.core.exception.OnCrashListener;
 import com.walker.core.util.ToastUtils;
 import com.walker.optimize.analyzer.IndexAnalyzer;
+import com.walker.optimize.analyzer.TimeAnalyzerMgr;
 
 /**
  * @author Walker
@@ -17,6 +19,13 @@ import com.walker.optimize.analyzer.IndexAnalyzer;
  * @desc Application
  */
 public class MyApplication extends Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        TimeAnalyzerMgr.getInstance().startTimeAnalyzer(1);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -27,6 +36,7 @@ public class MyApplication extends Application {
             }
         });
         ToastUtils.init(this);
+        TimeAnalyzerMgr.getInstance().getTimeAnalyzer(1).recordingTimeTag("application-onCreate");
     }
 
     @Override

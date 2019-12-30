@@ -3,9 +3,11 @@ package com.walker.flexiblecore.ui
 import android.os.Bundle
 import android.util.Log
 import com.walker.core.base.BaseFragmentActivity
+import com.walker.core.util.ToastUtils
 import com.walker.flexiblecore.R
 import com.walker.flexiblecore.ui.summary.SummaryFragment
 import com.walker.optimize.analyzer.IndexAnalyzer
+import com.walker.optimize.analyzer.TimeAnalyzerMgr
 
 class MainActivity : BaseFragmentActivity() {
 
@@ -24,6 +26,14 @@ class MainActivity : BaseFragmentActivity() {
 
         val keyInfo = IndexAnalyzer().listKeyInfo(applicationContext)
         Log.i("KeyInfo", keyInfo)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        TimeAnalyzerMgr.getInstance().getTimeAnalyzer(1).recordingTimeTag("MainActivity-onCreate-start")
+        super.onCreate(savedInstanceState)
+        TimeAnalyzerMgr.getInstance().getTimeAnalyzer(1).end("MainActivity-onCreate-over",true){
+            ToastUtils.showCenterShort(it?:it)
+        }
     }
 
     private fun aspectTest() {
