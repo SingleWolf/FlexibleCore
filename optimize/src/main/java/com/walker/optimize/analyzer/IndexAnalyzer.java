@@ -1,6 +1,7 @@
 package com.walker.optimize.analyzer;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Debug;
 import android.os.Process;
 
@@ -31,8 +32,10 @@ public class IndexAnalyzer {
         info.append(String.format("|    Max  Memory :%d M\n",getMaxMemory()));
         info.append(String.format("|    Used Memory :%d M\n",getUsedMemory()));
         info.append("|\n");
-        info.append(String.format("|    RuntimeStats:%s\n", Debug.getRuntimeStats().toString()));
-        info.append("|\n");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            info.append(String.format("|    RuntimeStats:%s\n", Debug.getRuntimeStats().toString()));
+            info.append("|\n");
+        }
         info.append(String.format("|    PSS Used    :%d\n", Debug.getPss()));
         info.append("|\n");
         info.append(String.format("|    File FD     :%d\n", getFdCount()));
