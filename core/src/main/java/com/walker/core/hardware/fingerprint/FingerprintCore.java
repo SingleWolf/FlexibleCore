@@ -1,5 +1,6 @@
 package com.walker.core.hardware.fingerprint;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.hardware.fingerprint.FingerprintManager;
@@ -98,6 +99,7 @@ public class FingerprintCore {
         return mState == AUTHENTICATING;
     }
 
+    @SuppressLint("MissingPermission")
     private void startAuthenticate(FingerprintManager.CryptoObject cryptoObject) {
         prepareData();
         mState = AUTHENTICATING;
@@ -113,7 +115,7 @@ public class FingerprintCore {
             } catch (Throwable throwable) {
                 Log.d(TAG, throwable.toString());
             }
-        } catch (Throwable throwable) {
+        } catch (Exception throwable) {
             Log.d(TAG, throwable.toString());
         }
     }
@@ -216,6 +218,7 @@ public class FingerprintCore {
         return isSupport;
     }
 
+    @SuppressLint("MissingPermission")
     public int checkIsSupport() {
         if (mFingerprintManager == null) {
             return 1;
@@ -237,6 +240,7 @@ public class FingerprintCore {
      *
      * @return
      */
+    @SuppressLint("MissingPermission")
     public boolean isHardwareDetected() {
         try {
             return mFingerprintManager.isHardwareDetected();
@@ -251,6 +255,7 @@ public class FingerprintCore {
      *
      * @return
      */
+    @SuppressLint("MissingPermission")
     public boolean isHasEnrolledFingerprints() {
         try {
             // 有些厂商api23之前的版本可能没有做好兼容，这个方法内部会崩溃（redmi note2, redmi note3等）

@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
 public class ILocationMgrProxy implements InvocationHandler {
-    private static final String TAG = "ILocationMgrProxy";
+    private static final String TAG = "LocationHookHelper";
     private Object mLocationManager;
 
     public ILocationMgrProxy(Object locationManager) {
