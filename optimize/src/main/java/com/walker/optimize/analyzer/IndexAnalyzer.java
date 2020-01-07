@@ -5,8 +5,6 @@ import android.os.Build;
 import android.os.Debug;
 import android.os.Process;
 
-import com.facebook.device.yearclass.YearClass;
-
 import java.io.File;
 
 /**
@@ -26,8 +24,6 @@ public class IndexAnalyzer {
         info.append(" -------------------- Device Run Info --------------------\n");
         info.append("|\n");
         info.append(String.format("|    CPU Count   :%d\n",getCPUCount()));
-        info.append("|\n");
-        info.append(String.format("|    Year Level  :%d\n",getDeviceYear(context)));
         info.append("|\n");
         info.append(String.format("|    Max  Memory :%d M\n",getMaxMemory()));
         info.append(String.format("|    Used Memory :%d M\n",getUsedMemory()));
@@ -87,14 +83,5 @@ public class IndexAnalyzer {
     private int getUsedMemory() {
         int size = (int) ((Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / UNIT_M);
         return size;
-    }
-
-    /**
-     * 获取机器年份
-     * @return 机器年份
-     */
-    private int getDeviceYear(Context context){
-        int year = YearClass.get(context);
-        return year;
     }
 }
