@@ -1,10 +1,18 @@
 package com.walker.flexiblecore;
 
 import android.app.Application;
+import android.content.Context;
+import android.location.LocationManager;
+import android.os.Process;
+import android.util.Log;
 
 import com.walker.core.exception.CrashHandler;
+import com.walker.core.exception.OOMHelper;
 import com.walker.core.exception.OnCrashListener;
 import com.walker.core.util.ToastUtils;
+import com.walker.optimize.analyzer.IndexAnalyzer;
+import com.walker.optimize.analyzer.TimeAnalyzerMgr;
+import com.walker.optimize.hook.location.LocationHookHelper;
 
 /**
  * @author Walker
@@ -13,6 +21,13 @@ import com.walker.core.util.ToastUtils;
  * @desc Application
  */
 public class MyApplication extends Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        TimeAnalyzerMgr.getInstance().startTimeAnalyzer(1);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,5 +38,26 @@ public class MyApplication extends Application {
             }
         });
         ToastUtils.init(this);
+
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        LocationHookHelper.hookLocationManager(locationManager);
+        LocationHookHelper.hookSystemServiceRegistry();
+
+        TimeAnalyzerMgr.getInstance().getTimeAnalyzer(1).recordingTimeTag("application-onCreate");
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (level >= TRIM_MEMORY_UI_HIDDEN && level == TRIM_MEMORY_RUNNING_CRITICAL) {
+            Log.i("onTrimMemory", OOMHelper.get().listStatisticsInfo(Process.myPid()));
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        String keyInfo=new IndexAnalyzer().listKeyInfo(getApplicationContext());
+        Log.i("onLowMemory", keyInfo);
     }
 }
