@@ -27,6 +27,11 @@ class SummaryRepository private constructor() {
                 it.title = "OOM相关"
                 list.add(it)
             }
+
+            Summary().let {
+                it.title = "算法测试"
+                list.add(it)
+            }
             liveData.postValue(Resource.success(list))
         }
 
