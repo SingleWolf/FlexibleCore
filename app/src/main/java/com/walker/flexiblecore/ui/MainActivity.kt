@@ -56,5 +56,4 @@ class MainActivity : BaseFragmentActivity() {
     private fun test(value: String) {
         Log.i("test", value)
     }
-
 }

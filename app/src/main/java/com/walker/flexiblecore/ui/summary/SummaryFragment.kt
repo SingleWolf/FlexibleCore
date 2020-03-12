@@ -7,17 +7,19 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.walker.core.base.BaseActivityFragment
 import com.walker.core.delegate.OnRecyclerItemClickListener
-import com.walker.core.exception.OOMHelper
 import com.walker.core.util.ToastUtils
 import com.walker.flexiblecore.R
+import com.walker.flexiblecore.algorithm.sort.BubbleSortHelper
+import com.walker.flexiblecore.algorithm.tree.BinaryTreeHelper
+import com.walker.flexiblecore.algorithm.tree.PriorityQueueHelper
 import com.walker.flexiblecore.data.Resource
 import com.walker.flexiblecore.ui.OOMFragment
 import com.walker.flexiblecore.util.InjectorUtil
+import java.util.*
 
 class SummaryFragment : BaseActivityFragment() {
     private lateinit var rvSummary: RecyclerView
@@ -29,7 +31,7 @@ class SummaryFragment : BaseActivityFragment() {
         viewModel = ViewModelProviders.of(this, InjectorUtil.getSummaryModelFactory()).get(SummaryViewModel::class.java)
         adapter = SummaryAdapter(viewModel.dataList)
         rvSummary?.let {
-            it.layoutManager=LinearLayoutManager(holdActivity)
+            it.layoutManager = LinearLayoutManager(holdActivity)
             it.adapter = adapter
             it.addOnItemTouchListener(object : OnRecyclerItemClickListener(it) {
                 override fun onItemClick(vh: RecyclerView.ViewHolder) {
@@ -48,6 +50,10 @@ class SummaryFragment : BaseActivityFragment() {
         summary?.let {
             if (TextUtils.equals("OOM相关", it.title)) {
                 addFragment(OOMFragment.instance, "OOMFragment")
+            } else if (TextUtils.equals("算法测试", it.title)) {
+                //BinaryTreeHelper.get().onTest()
+                //PriorityQueueHelper.get().onTest()
+                BubbleSortHelper.get().onTest()
             } else {
                 ToastUtils.showShort(it.title)
             }
